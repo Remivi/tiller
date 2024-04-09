@@ -1,0 +1,8 @@
+DELETE FROM `Tiller.order_data`
+WHERE 
+-- suppression des commandes en status “IN_PROGRESS”
+    dim_status = "IN_PROGRESS" OR 
+-- suppression des commandes avec id_table NULL, id_waiter NULL, id_device et montant payé = 0
+(id_table IS NULL AND id_waiter IS NULL AND id_device IS NULL AND m_cached_payed = 0) OR
+-- suppression des commandes avec un montant de facturation = 0
+    m_cached_price = 0;
