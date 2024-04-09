@@ -1,0 +1,5 @@
+-- si la montant payé est inférieur au montant de la facture alors mise à jour du montant payé avec le montant de la facture
+UPDATE `Tiller.order_data`
+SET 
+m_cached_payed = m_cached_price
+WHERE m_cached_payed < m_cached_price
