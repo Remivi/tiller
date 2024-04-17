@@ -1,0 +1,6 @@
+-- deletation of uselesss colums and date formatting
+SELECT 
+id_store,
+EXTRACT(DATE FROM date_created) AS date_opening,
+dim_zipcode
+FROM `aerobic-lock-402908.Tiller.store_data`
