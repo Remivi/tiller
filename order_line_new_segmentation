@@ -1,0 +1,10 @@
+-- création d'une nouvelle segmentation produit plus explicite
+SELECT 
+dim_category,
+CASE
+WHEN REGEXP_CONTAINS(LOWER(dim_category),"vins") THEN "Vins"
+WHEN REGEXP_CONTAINS(LOWER(dim_category),"apéritifs|spiritueux|cocktail") THEN "Alcools"
+WHEN REGEXP_CONTAINS(LOWER(dim_category),"café|thés|boisssons chaudes") THEN "Boissons chaudes"
+ELSE "Autres"
+END AS product_category
+FROM aerobic-lock-402908.Tiller.order_line
