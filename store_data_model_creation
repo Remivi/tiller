@@ -1,0 +1,30 @@
+-- creation of data store model for details report hors refund
+WITH store_aggregation AS (
+  SELECT 
+  date_opened,
+  id_store,
+  COUNT(DISTINCT id_waiter) AS nb_waiters,
+  COUNT(DISTINCT id_device) AS nb_devices,
+  ROUND(SUM(m_nb_customer),2) AS nb_customers,
+  ROUND(SUM(m_cached_payed),2) AS sum_cached_payed,
+  ROUND(SUM(m_cached_price),2) AS sum_cached_price
+  FROM `aerobic-lock-402908.Tiller.order_data` 
+  WHERE refund !=1
+  GROUP BY date_opened, id_store
+)
+SELECT 
+s.date_opened,
+s.id_store,
+s.nb_waiters,
+s.nb_devices,
+s.nb_customers,
+s.sum_cached_payed,
+s.sum_cached_price,
+e.date_created, 
+e.dim_zipcode, 
+e.nom_restaurant, 
+e.typologie, 
+e.concept,
+e.adresse_complete
+FROM store_aggregation s 
+LEFT JOIN aerobic-lock-402908.Tiller.store_data_enriched_address e USING (id_store)
