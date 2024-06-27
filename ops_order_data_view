@@ -1,0 +1,14 @@
+-- ops_order_data_view
+SELECT 
+id_order,
+nom_restaurant,
+id_waiter,
+date_opened,
+date_closed,
+ROUND(TIMESTAMP_DIFF(date_closed, date_opened,SECOND)/60,2) AS servicetime_order,
+EXTRACT(HOUR FROM date_opened) AS hour,
+EXTRACT(DAYOFWEEK FROM DATE_SUB(CAST(date_closed AS DATE), INTERVAL 1 DAY)) AS day_of_week,
+m_nb_customer,
+refund
+FROM `aerobic-lock-402908.Tiller.order_data` 
+LEFT JOIN aerobic-lock-402908.Tiller.store_data_enriched_address USING (id_store)
