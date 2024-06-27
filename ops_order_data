@@ -1,0 +1,26 @@
+-- ops_order_data table
+SELECT 
+id_order, 
+nom_restaurant, 
+id_waiter, 
+date_opened, 
+date_closed, 
+servicetime_order, 
+hour, 
+CASE 
+  WHEN hour >= 11 AND hour <= 15 THEN "midi"
+  WHEN hour >= 18 AND hour <= 23 THEN "soir"
+  ELSE "Autre"
+  END AS service,
+CASE 
+    WHEN day_of_week = 1 THEN 'lundi'
+    WHEN day_of_week = 2 THEN 'mardi'
+    WHEN day_of_week = 3 THEN 'mercredi'
+    WHEN day_of_week = 4 THEN 'jeudi'
+    WHEN day_of_week = 5 THEN 'vendredi'
+    WHEN day_of_week = 6 THEN 'samedi'
+    WHEN day_of_week = 7 THEN 'dimanche'
+END AS str_day_week,
+m_nb_customer, 
+refund
+FROM `Tiller.ops_order_data_view`
