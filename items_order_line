@@ -1,0 +1,13 @@
+##items_order_line
+SELECT 
+l.id_order_line, 
+l.id_order,
+s.nom_restaurant,
+l.line_date_opended,
+l.m_quantity,
+l.dim_type,
+l.final_category,
+l.dim_name,
+l.dim_feature_type
+FROM `aerobic-lock-402908.Tiller.order_line_cleaned` l
+LEFT JOIN aerobic-lock-402908.Tiller.model_ops_order_data s ON l.id_order = s.id_order
