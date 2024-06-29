@@ -1,0 +1,16 @@
+##model finance##
+SELECT 
+p.id_pay, 
+p.id_order,
+REPLACE(LOWER(p.dim_type), "_", " ") AS dim_type,
+p.m_amount,
+p.date_created,
+f.nom_restaurant,
+f.id_waiter,
+f.id_device, 
+f.dim_source, 
+f.refund,
+o.m_cached_payed
+FROM `aerobic-lock-402908.Tiller.payment_data` p 
+LEFT JOIN aerobic-lock-402908.Tiller.finance_solutions_tiller f ON p.id_order = f.id_order
+LEFT JOIN aerobic-lock-402908.Tiller.order_data o ON p.id_order = o.id_order
